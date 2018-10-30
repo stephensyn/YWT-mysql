@@ -1,0 +1,47 @@
+﻿Imports MySql.Data.MySqlClient
+Imports Microsoft.VisualBasic
+
+Public Class Form4
+    Dim custTmp As New ywtDataSet.testDataTable
+    Dim findkey As String = vbNullString
+    Public Sub intcombobox()
+        TestTableAdapter1.Fill(custTmp)
+
+        ' "nameindex like'%" + ComboBox2.Text + "%'"
+        ComboBox1.DataSource = custTmp.Select("nameindex Like '%" + TextBox1.Text + "%'")
+        ComboBox1.DisplayMember = "namet"
+        ComboBox1.ValueMember = "Id"
+
+
+
+        ComboBox1.Text = vbNullString
+
+    End Sub
+    Private Sub Form4_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Call intcombobox()
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        TextBoxSValue.Text = ComboBox1.SelectedValue
+        TextBoxSItem.Text = ComboBox1.Text
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Call intcombobox()
+    End Sub
+
+    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub ComboBox1_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles ComboBox1.SelectionChangeCommitted
+        TextBoxSValue.Text = ComboBox1.SelectedValue
+        TextBoxSItem.Text = ComboBox1.Text
+    End Sub
+
+    Private Sub ComboBox1_KeyDown(sender As Object, e As KeyEventArgs) Handles ComboBox1.KeyDown
+        TextBox1.Text = e.KeyValue
+    End Sub
+
+
+End Class
